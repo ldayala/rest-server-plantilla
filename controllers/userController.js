@@ -6,22 +6,24 @@ const { request, response } = require("express"); // esto lo hacemos porque al e
 const User = require("../models/userModel");
 
 const userGet = async (req = request, res = response) => {
-    // vamos a mostrar los usuarios paginados
-    const {limit=5,desde=0}=req.query
-   /* const userTotal= await User.countDocuments()
+  // vamos a mostrar los usuarios paginados
+  const { limit = 5, desde = 0 } = req.query;
+  /* const userTotal= await User.countDocuments()
    const usuarios= await User.find({estado:true})// con el estado: true porque los false son los user eliminados
         .skip(Number(desde))
         .limit(Number(limit))// tenemos qu convertir el limite a number para que funcione la funcion ya que al venir de la url es un string
-     */ 
-    const query={estado:true}  
-    const [userTotal, usuarios]= await Promise.all([
-       User.countDocuments(query),
-       User.find(query)// con el estado: true porque los false son los user eliminados
+     */
+  const query = { estado: true };
+  const [userTotal, usuarios] = await Promise.all([
+    User.countDocuments(query),
+    User.find(query) // con el estado: true porque los false son los user eliminados
       .skip(Number(desde))
-      .limit(Number(limit))])
+      .limit(Number(limit)),
+  ]);
   res.json({
     userTotal,
-    usuarios});
+    usuarios,
+  });
 };
 
 const userPost = async (req, res = response) => {
@@ -43,11 +45,16 @@ const userPost = async (req, res = response) => {
   });
 };
 
-const userDelete = async(req, res = response) => {
-// en este caso la eliminacion consite en actualizar a false es estado
-   const {id}= req.params
-    const userElimin= await User.findByIdAndUpdate(id,{estado:false})
-  res.json(userElimin);
+const userDelete = async (req, res = response) => {
+  // en este caso la eliminacion consite en actualizar a false es estado
+
+  const { id } = req.params;
+ 
+  const  userElimin =await User.findByIdAndUpdate(id, { estado: false })
+  res.json({
+    userElimin,
+   
+  });
 };
 
 const userPut = async (req, res = response) => {

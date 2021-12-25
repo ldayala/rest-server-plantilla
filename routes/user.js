@@ -9,8 +9,10 @@ const {
   userpatch,
 } = require("../controllers/userController");
 const { esRolValido, emailExiste, idExiste } = require("../helpers/db-validators");
-const { validarCampos } = require("../middleware/validarCampos");
-
+// const { validarToken } = require("../middleware/validar-jwt");
+// const { validarRole,validarRoles } = require("../middleware/validar-roles");
+// const { validarCampos } = require("../middleware/validarCampos");
+const {validarToken,validarRoles,validarCampos}= require('../middleware')
 
 // destructuramos el metodo Router de express para utilizarlo
 const router = Router();
@@ -54,6 +56,10 @@ router.put("/:id",[
 ], userPut);
 
 router.delete("/:id",[
+    validarToken,
+    // validarRole,
+    //como estamos ejecutando una funcion, esta retorna el middleware que se ejecuta aqui,asi es cmo pasamos parametros en un middleware
+    validarRoles('ADMIN_ROLE','USER_ROLE','GUESS_ROLE'),
     check('id',"no es un id de Mongo").isMongoId(),// el check reconoce tanto los parametros como los body
     check('id').custom(idExiste),
     validarCampos   
