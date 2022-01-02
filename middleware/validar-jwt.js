@@ -21,13 +21,13 @@ const validarToken=async(req=request,res=response,next)=>{
      const  usuarioAutenticado=await UserModel.findById(uid)
       //verificamos que el ususario autenticado sea valido o no este el estado el false
       if(!usuarioAutenticado){
-        res.status(401).json({
+       return res.status(401).json({
             msg:'token no valido- usuario no existe en DB'
         })
     }
      //verificamos que el ususario autenticado sea valido o no este el estado el false
      if(!usuarioAutenticado.estado){
-         res.status(401).json({
+       return  res.status(401).json({
              msg:'token no valido- usuario inactivo'
          })
      }

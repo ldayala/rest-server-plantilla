@@ -10,8 +10,12 @@ class Server {
     constructor(){
         this.app=express()
         this.puerto=process.env.PORT
-        this.userPath='/api/user'
-        this.authPath='/api/auth'
+        this.path={
+           user:'/api/user',
+           auth:'/api/auth',
+           categoria:'/api/categorias'
+        }
+        
         //conexion a la base de datos
         this.conectionDB()
         //middleware
@@ -42,9 +46,9 @@ class Server {
     routes(){
         //para obtener las rutas voy a usar un middleware, aqui configuramos el router para que este path que le enviamos aqui sea el path que reciba
         //en las peticiones que tenemos en user router
-        this.app.use(this.authPath,require('../routes/auth'))
-        this.app.use(this.userPath,require('../routes/user'))
-        
+        this.app.use(this.path.auth,require('../routes/auth'))
+        this.app.use(this.path.user,require('../routes/user'))
+        this.app.use(this.path.categoria,require('../routes/categorias'))
     }
 
     listen(){

@@ -18,7 +18,7 @@ const userSchema = Schema({
   role: {
     type: String,
     required: true,
-    default:'USER_ROLE',
+    default: "USER_ROLE",
     enum: ["ADMIN_ROLE", "USER_ROLE"],
   },
   estado: {
@@ -36,6 +36,6 @@ const userSchema = Schema({
 userSchema.methods.toJSON = function () {
   const { __v, password, _id, ...user } = this.toObject();
   user.uid = _id;
-  return user;
+   return user;
 };
 module.exports = model("user", userSchema); // el primer parametro es el nombre que va a tenr la tablae en la bd, mongo le agrega una s

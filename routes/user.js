@@ -9,19 +9,12 @@ const {
   userpatch,
 } = require("../controllers/userController");
 const { esRolValido, emailExiste, idExiste } = require("../helpers/db-validators");
-// const { validarToken } = require("../middleware/validar-jwt");
-// const { validarRole,validarRoles } = require("../middleware/validar-roles");
-// const { validarCampos } = require("../middleware/validarCampos");
+
 const {validarToken,validarRoles,validarCampos}= require('../middleware')
 
 // destructuramos el metodo Router de express para utilizarlo
 const router = Router();
 
-/*app.get('/',(req,res)=>{
-    res.status(300).json({
-        nombre:'daniel'
-    })
-})*/
 
 // aqui llamo a la funcion del controlador userGet, no la estoy ejecutando sino haciendo una referencia, porque que el req,res se le pasan inplicitamente
 router.get("/",[
