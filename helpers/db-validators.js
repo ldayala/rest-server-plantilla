@@ -1,4 +1,4 @@
-const { CategoriaModel } = require("../models");
+const { CategoriaModel, ProductoModel } = require("../models");
 const Role = require("../models/roleModel");
 const User = require("../models/userModel");
 
@@ -32,14 +32,42 @@ const validaId = async (id = null) => {
   const categoriaDb = await CategoriaModel.findById(id);
   if (!categoriaDb)
     throw new Error("En la DB no exite ninguna categoria con es id");
-
 };
 
+const validaCategoria = async (categoria = null) => {
+  const existe = await CategoriaModel.findById(categoria);
 
+  if (!existe) {
+    throw new Error("la categoria no existe en la DB");
+  } else {
+    if (existe.estado === false)
+      throw new Error(
+        `la categoría con id: ${categoria} ha sido eliminada de la bd con anterioridad`
+      );
+  }
+};
 
+const validaNameProducto = async (name) => {
+  name=name.toLowerCase()
+  const existe = await ProductoModel.findOne({ name });
+  if (existe) throw new Error("ya existe un producto con ese nombre");
+};
+
+const validaIdProducto = async (id = null) => {
+  if (!id) {
+    throw new Error("el id es obligatorio");
+  }
+  const productoDb = await ProductoModel.findById(id);
+  if (!productoDb) throw new Error("En la DB no exite un producto con es id");
+  if (productoDb.estado === false)
+    throw new Error("Ese producto ha sido eliminado de la base de datos");
+};
 module.exports = {
   esRolValido,
   emailExiste,
   idExiste,
   validaId,
+  validaCategoria,
+  validaNameProducto,
+  validaIdProducto,
 };

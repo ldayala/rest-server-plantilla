@@ -13,7 +13,9 @@ class Server {
         this.path={
            user:'/api/user',
            auth:'/api/auth',
-           categoria:'/api/categorias'
+           categoria:'/api/categorias',
+           productos:'/api/productos',
+           buscar:'/api/buscar'
         }
         
         //conexion a la base de datos
@@ -49,6 +51,9 @@ class Server {
         this.app.use(this.path.auth,require('../routes/auth'))
         this.app.use(this.path.user,require('../routes/user'))
         this.app.use(this.path.categoria,require('../routes/categorias'))
+        this.app.use(this.path.productos,require('../routes/productos'))
+        this.app.use(this.path.buscar,require('../routes/buscar'))
+
     }
 
     listen(){

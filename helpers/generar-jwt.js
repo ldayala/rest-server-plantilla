@@ -7,7 +7,7 @@ const generarToken= (uid)=>{//uid=> identificador unico de usuario
         const payload= {uid} //grabo los datos en el payload
         jwt.sign(payload,process.env.SECRETOPRIVATEKEY,{
             //aqui le pasamos la opciones
-            expiresIn:'4h'
+            expiresIn:'10d'
         },(err,token)=>{
             if(err){
                 console.log(err);

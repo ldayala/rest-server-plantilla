@@ -21,7 +21,7 @@ const categoriaSchema = Schema({
 categoriaSchema.methods.toJSON = function () {
   const { __v, estado, ...categoria } = this.toObject();
   delete categoria.usuario._id;
-  delete categoria.usuario._id;
+  
   return categoria;
 };
 module.exports = model("Categoria", categoriaSchema);
