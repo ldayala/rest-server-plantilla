@@ -95,7 +95,7 @@ const mostrarImagen = async (req, res = response) => {
 
     //return res.json({ msj: "imagen actualizada", nombreArchivo });
   } catch (error) {
-    console.log(error);
+    
     res.status(500).json("Error interno del servidor");
   }
 };
