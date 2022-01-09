@@ -31,7 +31,8 @@ const ProductoSchema= Schema({
       disponible:{
           type:Boolean,
           default:true
-      }
+      },
+      img:String
 })
 
 module.exports=model('Producto',ProductoSchema);

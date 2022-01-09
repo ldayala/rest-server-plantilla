@@ -62,6 +62,19 @@ const validaIdProducto = async (id = null) => {
   if (productoDb.estado === false)
     throw new Error("Ese producto ha sido eliminado de la base de datos");
 };
+
+/**
+ * validar que las coleccion este dentro la colecciones permitidas
+ */
+const validarColeccion=(c='',coleccionesPermitidas=[])=>{
+  if(!coleccionesPermitidas.includes(c)){
+    throw new Error(`${c} no es un colleccion permitida`)
+  }
+  return true
+}
+ 
+
+
 module.exports = {
   esRolValido,
   emailExiste,
@@ -70,4 +83,6 @@ module.exports = {
   validaCategoria,
   validaNameProducto,
   validaIdProducto,
+  validarColeccion,
+
 };

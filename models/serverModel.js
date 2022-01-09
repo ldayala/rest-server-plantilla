@@ -1,7 +1,7 @@
 const express = require("express");
 const cors= require('cors');
+const fileUpload = require("express-fileupload");
 const { conexionDb } = require("../database/config");
-
 
 
 // en esta clase hago toda la parte del servidos de expres  para asi tener un codigo mas limpio
@@ -15,7 +15,8 @@ class Server {
            auth:'/api/auth',
            categoria:'/api/categorias',
            productos:'/api/productos',
-           buscar:'/api/buscar'
+           buscar:'/api/buscar',
+           uploads:'/api/uploads'
         }
         
         //conexion a la base de datos
@@ -41,7 +42,12 @@ class Server {
         this.app.use(express.static('public'))
         //lectura y parseo del body
         this.app.use(express.json())
-
+        // carga de archivos
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath:true  //permite crear la carpeta si no existe, por defecto esta en false
+        }));
     }
 
     
@@ -53,6 +59,7 @@ class Server {
         this.app.use(this.path.categoria,require('../routes/categorias'))
         this.app.use(this.path.productos,require('../routes/productos'))
         this.app.use(this.path.buscar,require('../routes/buscar'))
+        this.app.use(this.path.uploads,require('../routes/uploads'))
 
     }
 
